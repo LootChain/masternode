@@ -4,7 +4,7 @@
 2. Generate two new addresses:
    - Enter `getnewaddress "label"` (example: `getnewaddress MN1`)
    - Enter `getnewaddress "label"` (example: `getnewaddress MN1-owner`)
-3. Send exactly 1,000 QCH to the first address and wait until the transaction has 15 confirmations.
+3. Send exactly 1000000 QCH to the first address and wait until the transaction has 15 confirmations.
 4. Run `masternode outputs` in the console and note the respective TX-ID and TX-Index for the steps below.
 
 Next, you need to prepare the masternode to be registered on-chain using the template below (replace the red variables with your data):
