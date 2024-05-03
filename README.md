@@ -15,7 +15,7 @@ protx register_prepare collateralHash collateralIndex ipAndPort ownerKeyAddr ope
 
 - `collateralHash`: TX-ID of the transaction containing the 1000000 QCH.
 - `collateralIndex`: TX-Index of the transaction containing the 1000000 QCH.
-- `ipAndPort`: IP and p2p port (IPv4: 5.189.159.94:40000 | IPv6: [2a02:c207:3005:3682::19]:40000).
+- `ipAndPort`: IP and p2p port (IPv4: 5.189.159.94:25986 | IPv6: [2a02:c207:3005:3682::19]:25986).
 - `ownerKeyAddr`: The second new address generated.
 - `operatorPubKey`: Public Key from BLS keypair.
 - `votingKeyAddr`: The second new address generated.
