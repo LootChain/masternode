@@ -1,36 +1,35 @@
-## Setting Up Masternode for QuestChain (QCH)
+# QuestChain Masternode Setup Guide
 
-1. Open your QuestChain wallet and navigate to the console via `Tools -> Debug console`.
-2. Generate two new addresses:
-   - Enter `getnewaddress "label"` (example: `getnewaddress MN1`)
-   - Enter `getnewaddress "label"` (example: `getnewaddress MN1-owner`)
-3. Send exactly 1000000 QCH to the first address and wait until the transaction has 15 confirmations.
-4. Run `masternode outputs` in the console and note the respective TX-ID and TX-Index for the steps below.
-5. Enter 'bls generate' in the console to obtain the public parameters.
-Next, you need to prepare the masternode to be registered on-chain using the template below (replace the red variables with your data):
+## Initial Setup:
+### Generate New Addresses
+Use the `getnewaddress` command in your QuestChain wallet console to generate new addresses for various purposes:
+- **CollateralAddress**: Send exactly 1,000,000 QCH to this address. This will be locked as collateral.
+- **OwnerKeyAddress**: Must be new and unused. Can also be used as the VotingKeyAddress.
+- **VotingKeyAddress**: Can be the same as the OwnerKeyAddress, but must not be the CollateralAddress.
+- **PayoutAddress**: Where masternode rewards are sent. It can also be the same as CollateralAddress.
+- **FeeSourceAddress**: Should have sufficient funds to cover transaction fees for the protx transactions. It is advisable not to use the CollateralAddress for this purpose.
 
+### Register Your Masternode
+Use the `protx register_prepare` command followed by the necessary parameters:
+- **collateralHash**: The TXID of the 1,000,000 QCH collateral funding transaction.
+- **collateralIndex**: The output index of the funding transaction (either 0 or 1).
+- **ipAndPort**: Your masternode's IP address and port. Format for IPv4: `x.x.x.x:40000`, for IPv6: `[x:x:x:x:x:x:x:x]:40000`.
+- **ownerKeyAddr**: The new QCH address generated above for the owner/voting address.
+- **operatorPubKey**: The BLS public key generated earlier.
+- **votingKeyAddr**: The new QCH address generated above or the address of a delegate, used for proposal voting.
+- **operatorReward**: Usually set to "0" as you might want 100% of the reward going to the owner.
+- **payoutAddress**: A new or existing QCH address to receive the owner’s masternode rewards.
+- **feeSourceAddress**: An address used to fund the ProTx fee.
 
-protx register_prepare collateralHash collateralIndex ipAndPort ownerKeyAddr operatorPubKey votingKeyAddr operatorReward payoutAddress feeSourceAddress
+### Sign the Transaction
+Use the `signmessage` command with your CollateralAddress to sign the transaction.
 
+### Submit the Transaction
+Use the `protx register_submit` command to finalize the registration by submitting the signed transaction.
 
-- `collateralHash`: TX-ID of the transaction containing the 1000000 QCH.
-- `collateralIndex`: TX-Index of the transaction containing the 1000000 QCH.
-- `ipAndPort`: IP and p2p port (IPv4: 5.189.159.94:25986 | IPv6: [2a02:c207:3005:3682::19]:25986).
-- `ownerKeyAddr`: The second new address generated.
-- `operatorPubKey`: Public Key from BLS keypair.
-- `votingKeyAddr`: The second new address generated.
-- `operatorReward`: 0.
-- `payoutAddress`: Your masternode address or a new one you want to receive the rewards.
-- `feeSourceAddress`: An address in your wallet with a few QCH for TX fees.
+## Maintenance and Monitoring
+Regularly check your masternode status in the QuestChain wallet under the Masternodes tab.
+Address any issues indicated by an increasing PoSe Score (Proof of Service Score) to avoid disruptions in service.
 
-If the command was executed successfully, the wallet will respond with 3 strings containing "tx", "collateralAddress", "signMessage".
-
-Next, run `signmessage collateralAddress signMessage`, replacing both variables with the data above (without quotes).
-
-If the command was executed successfully, the wallet will respond with 1 string containing the signature.
-
-Finally, run `protx register_submit tx signature` to submit the masternode to the chain.
-
-You do not need to keep a record of that console output. After a few blocks, you should see your new masternode appear in the masternode tab of your controller.
-
-Note: There is no more masternode.conf file or similar. Everything is done "on-chain" using the commands above. You can verify your masternode is running successfully on VPS with the `masternode status` command. If the state "READY" is displayed, your masternode is running, and you will get your reward on the Next Payment block.
+## Updates
+If moving the node to a different VPS or changing IP addresses, use `protx update_service` to update the node details on the blockchain.
