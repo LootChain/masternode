@@ -9,13 +9,16 @@ Use the `getnewaddress` command in your QuestChain wallet console to generate ne
 - **PayoutAddress**: Where masternode rewards are sent. It can also be the same as CollateralAddress.
 - **FeeSourceAddress**: Should have sufficient funds to cover transaction fees for the protx transactions. It is advisable not to use the CollateralAddress for this purpose.
 
+### Generate Public Key
+Use the `bls generate` command to generate a BLS public key which is required for the masternode setup.
+
 ### Register Your Masternode
 Use the `protx register_prepare` command followed by the necessary parameters:
 - **collateralHash**: The TXID of the 1,000,000 QCH collateral funding transaction.
 - **collateralIndex**: The output index of the funding transaction (either 0 or 1).
 - **ipAndPort**: Your masternode's IP address and port. Format for IPv4: `x.x.x.x:40000`, for IPv6: `[x:x:x:x:x:x:x:x]:40000`.
 - **ownerKeyAddr**: The new QCH address generated above for the owner/voting address.
-- **operatorPubKey**: The BLS public key generated earlier.
+- **operatorPubKey**: The BLS public key generated from the `bls generate` command.
 - **votingKeyAddr**: The new QCH address generated above or the address of a delegate, used for proposal voting.
 - **operatorReward**: Usually set to "0" as you might want 100% of the reward going to the owner.
 - **payoutAddress**: A new or existing QCH address to receive the owner’s masternode rewards.
