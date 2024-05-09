@@ -38,6 +38,8 @@ Example:
 signmessage <CollateralAddress> "<message from protx register_prepare output>"
 his will produce a signature that you will use in the next step.
 
+![sign](https://github.com/LootChain/masternode/assets/165670633/0690621d-21bb-49ec-aab4-5a724cb0e77f)
+
 Submit the Transaction
 To submit the signed transaction to the network:
 
@@ -46,8 +48,6 @@ Parameters:
 tx: The raw transaction string obtained from the protx register_prepare command.
 sig: The signature obtained from the signmessage command.
 protx register_submit <tx from register_prepare> <sig from signmessage>
-![sign](https://github.com/LootChain/masternode/assets/165670633/0690621d-21bb-49ec-aab4-5a724cb0e77f)
-
 This submits your masternode registration to the blockchain, completing the setup process.
 
 Maintenance and Monitoring
