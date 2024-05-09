@@ -57,5 +57,3 @@ Address any issues indicated by an increasing PoSe Score (Proof of Service Score
 Updates
 If moving the node to a different VPS or changing IP addresses, use protx update_service to update the node details on the blockchain.
 
-
-This comprehensive guide in Markdown format should be helpful for users looking to set up a QuestChain masternode, providing clear instructions and examples.
